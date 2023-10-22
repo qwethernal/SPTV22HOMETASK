@@ -7,112 +7,116 @@ public class WeatherInYear {
 
     private final Scanner scanner;
     private enum MONTHS {
-        Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь
+        Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь
     }
-
-    private int[][] weatherInYear;
 
     public WeatherInYear(Scanner scanner) {
         this.scanner = scanner;
-        this.weatherInYear = new int[12][];
-        this.weatherInYear[0] = new int[31];
-        this.weatherInYear[1] = new int[28];
-        this.weatherInYear[2] = new int[31];
-        this.weatherInYear[3] = new int[30];
-        this.weatherInYear[4] = new int[31];
-        this.weatherInYear[5] = new int[30];
-        this.weatherInYear[6] = new int[31];
-        this.weatherInYear[7] = new int[31];
-        this.weatherInYear[8] = new int[30];
-        this.weatherInYear[9] = new int[31];
-        this.weatherInYear[10] = new int[30];
-        this.weatherInYear[11] = new int[31];
-    }
-
-    public void generateRandomWeather() {
-        Random random = new Random();
-        int min = -30;
-        int max = 40;
-        for (int i = 0; i < weatherInYear.length; i++) {
-            for (int j = 0; j < weatherInYear[i].length; j++) {
-                weatherInYear[i][j] = random.nextInt(max - min + 1) + min;
-            }
-        }
-    }
-
-    public void printWeatherForDate(int month, int day) {
-        if (month < 1 || month > 12 || day < 1 || day > getDaysInMonth(month)) {
-            System.out.println("Некорректная дата.");
-            return;
-        }
-        int temperature = weatherInYear[month - 1][day - 1];
-        System.out.printf("Погода %d %s: %d градусов%n", day, MONTHS.values()[month - 1], temperature);
-    }
-
-    public void findWarmestAndColdestDays() {
-        int warmestTemp = Integer.MIN_VALUE;
-        int coldestTemp = Integer.MAX_VALUE;
-        int warmestDay = 0;
-        int coldestDay = 0;
-
-        for (int i = 0; i < weatherInYear.length; i++) {
-            for (int j = 0; j < weatherInYear[i].length; j++) {
-                if (weatherInYear[i][j] > warmestTemp) {
-                    warmestTemp = weatherInYear[i][j];
-                    warmestDay = j + 1;
-                }
-                if (weatherInYear[i][j] < coldestTemp) {
-                    coldestTemp = weatherInYear[i][j];
-                    coldestDay = j + 1;
-                }
-            }
-        }
-
-        System.out.printf("Самый теплый день: %d градусов%n", warmestTemp);
-        System.out.printf("Самый холодный день: %d градусов%n", coldestTemp);
-    }
-
-    public void calculateAverageTemperatureByMonth() {
-        for (int i = 0; i < weatherInYear.length; i++) {
-            int sum = 0;
-            for (int j = 0; j < weatherInYear[i].length; j++) {
-                sum += weatherInYear[i][j];
-            }
-            double average = (double) sum / weatherInYear[i].length;
-            System.out.printf("Средняя температура в %s: %.2f градусов%n", MONTHS.values()[i], average);
-        }
-    }
-
-    private int getDaysInMonth(int month) {
-        int days;
-        switch (month) {
-            case 2:
-                days = 29; // В високосные года у февраля 29 дней
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                days = 30;
-                break;
-            default:
-                days = 31;
-                break;
-        }
-        return days;
     }
 
     public void runTask() {
-        generateRandomWeather();
+        Random random = new Random();
 
-        System.out.print("Введите месяц (1-12): ");
+        System.out.println("Массив погоды в году по месяцам: ");
+        int[][] weatherInYear = new int[12][];
+        weatherInYear[0] = new int[31];
+        weatherInYear[1] = new int[28];
+        weatherInYear[2] = new int[31];
+        weatherInYear[3] = new int[30];
+        weatherInYear[4] = new int[31];
+        weatherInYear[5] = new int[30];
+        weatherInYear[6] = new int[31];
+        weatherInYear[7] = new int[31];
+        weatherInYear[8] = new int[30];
+        weatherInYear[9] = new int[31];
+        weatherInYear[10] = new int[30];
+        weatherInYear[11] = new int[31];
+
+        for (int i = 0; i < weatherInYear.length; i++) {
+            for (int j = 0; j < weatherInYear[i].length; j++) {
+                switch (i) {
+                    case 11: // Декабрь
+                    case 0:  // Январь
+                    case 1:  // Февраль
+                        weatherInYear[i][j] = random.nextInt(26) + (-30);
+                        break;
+                    case 2:  // Март
+                    case 3:  // Апрель
+                    case 4:  // Май
+                        weatherInYear[i][j] = random.nextInt(21) - 5;
+                        break;
+                    case 5:  // Июнь
+                    case 6:  // Июль
+                    case 7:  // Август
+                        weatherInYear[i][j] = random.nextInt(21) + 10;
+                        break;
+                    case 8:  // Сентябрь
+                    case 9:  // Октябрь
+                    case 10: // Ноябрь
+                        weatherInYear[i][j] = random.nextInt(26) - 10;
+                        break;
+                }
+            }
+        }
+
+        System.out.printf("%14s", " ");
+        for (int si = 0; si < 31; si++) {
+            System.out.printf("%-4d", si + 1);
+        }
+        System.out.println();
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+
+        for (int i = 0; i < weatherInYear.length; i++) {
+            System.out.printf("%10s: ", MONTHS.values()[i]);
+            for (int j = 0; j < weatherInYear[i].length; j++) {
+                System.out.printf("%4d", weatherInYear[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Введите месяц (1-12): ");
         int month = scanner.nextInt();
-        System.out.print("Введите день (1-31): ");
-        int day = scanner.nextInt();
-        printWeatherForDate(month, day);
 
-        findWarmestAndColdestDays();
+        if (month >= 1 && month <= 12) {
+            System.out.println("Введите день (1-31): ");
+            int day = scanner.nextInt();
 
-        calculateAverageTemperatureByMonth();
+            if (day >= 1 && day <= 31) {
+                System.out.printf("Температура воздуха %d %s: %d%n", day, MONTHS.values()[month - 1], weatherInYear[month - 1][day - 1]);
+            } else {
+                System.out.println("Неверный ввод дня!");
+            }
+
+            int[] temperatures = weatherInYear[month - 1];
+            int maxTemp = Integer.MIN_VALUE;
+            int minTemp = Integer.MAX_VALUE;
+            int maxDay = -1;
+            int minDay = -1;
+
+            for (int i = 0; i < temperatures.length; i++) {
+                if (temperatures[i] > maxTemp) {
+                    maxTemp = temperatures[i];
+                    maxDay = i + 1;
+                }
+                if (temperatures[i] < minTemp) {
+                    minTemp = temperatures[i];
+                    minDay = i + 1;
+                }
+            }
+
+            System.out.printf("Самая теплая погода была %d градусов в %d %s%n", maxTemp, maxDay, MONTHS.values()[month - 1]);
+            System.out.printf("Самая холодная погода была %d градусов в %d %s%n", minTemp, minDay, MONTHS.values()[month - 1]);
+
+            int sum = 0;
+            for (int temperature : temperatures) {
+                sum += temperature;
+            }
+            int average = sum / temperatures.length;
+            System.out.printf("Средняя температура в этом месяце: %d градусов%n", average);
+        } else {
+            System.out.println("Неверный ввод месяца!");
+        }
     }
 }

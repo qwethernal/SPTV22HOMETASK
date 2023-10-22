@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class NumberParser {
 
-    private final Scanner scanner;
-
+    Scanner scanner;
+    
     public NumberParser(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -13,17 +13,16 @@ public class NumberParser {
     public void doParse() {
         System.out.print("Введите трехзначное число: ");
         int number = scanner.nextInt();
-        scanner.nextLine();
-        int ones = number % 10;  // Calculate ones place
-        int tens = (number / 10) % 10;  // Calculate tens place
-        int hundreds = (number / 100) % 10; // Calculate hundreds place
-        int sum = ones + tens + hundreds; // Calculate sum of digits
+        int ones = number % 10;
+        int tens = (number / 10) % 10;
+        int hundreds = (number / 100) % 10;
+        int sum = ones + tens + hundreds;
 
-        // Updated code to display results
+
         System.out.println("В этом числе:");
         System.out.printf("  - единиц: %d%n", ones);
         System.out.printf("  - десятков: %d%n", tens);
-        System.out.printf("  - сотен: %d%n", hundreds); // Added this line
+        System.out.printf("  - сотен: %d%n", hundreds);
         System.out.printf("  - сумма цифр: %d%n", sum);
     }
 

@@ -10,14 +10,16 @@ public class AlphabetCheck {
         this.scanner = scanner;
     }
 
-    public void checkAlphabet(String text) {
-        boolean[] alphabetCheck = new boolean[26];
+    public void checkAlphabet() {
+        System.out.println("Введите текст для проверки:");
+        String text = scanner.nextLine();
+        boolean[] alphabetCheck = new boolean[33];
         int count = 0;
 
         for (int i = 0; i < text.length(); i++) {
             char ch = Character.toLowerCase(text.charAt(i));
-            if (Character.isLetter(ch)) {
-                int index = ch - 'a';
+            if (Character.UnicodeBlock.of(ch) == Character.UnicodeBlock.CYRILLIC) {
+                int index = ch - 'а';
                 if (!alphabetCheck[index]) {
                     alphabetCheck[index] = true;
                     count++;
@@ -25,20 +27,10 @@ public class AlphabetCheck {
             }
         }
 
-        if (count == 26) {
-            System.out.println("Текст содержит все буквы алфавита.");
+        if (count == 33) {
+            System.out.println("Текст содержит все русские буквы алфавита.");
         } else {
-            System.out.println("Текст НЕ содержит все буквы алфавита.");
+            System.out.println("Текст НЕ содержит все русские буквы алфавита.");
         }
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        AlphabetCheck alphabetCheck = new AlphabetCheck(scanner);
-
-        System.out.println("Введите текст для проверки:");
-        String text = scanner.nextLine();
-
-        alphabetCheck.checkAlphabet(text);
     }
 }

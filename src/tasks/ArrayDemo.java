@@ -16,12 +16,13 @@ public class ArrayDemo {
         int sum = 0;
 
         for (int i = 0; i < myArray.length; i++) {
-            myArray[i] = random.nextInt(51) * 2;
+            myArray[i] = random.nextInt(11) * 2;
             sum += myArray[i];
         }
 
         int max = myArray[0];
         int min = myArray[0];
+
         for (int i = 1; i < myArray.length; i++) {
             if (myArray[i] > max) {
                 max = myArray[i];
@@ -32,15 +33,15 @@ public class ArrayDemo {
         }
 
         sum = sum - max - min;
-        double average = (double) sum / (myArray.length - 2);
+        int average = sum / (myArray.length - 2);
 
         System.out.println("Массив из 20 случайных четных чисел: ");
-        for (int value : myArray) {
-            System.out.printf("%4d", value);
+        for (int i : myArray) {
+            System.out.printf("%4d", i);
         }
-        System.out.println();
 
-        System.out.printf("Среднее арифметическое элементов массива " +
-                "без учета максимального и минимального числа: %.2f%n", average);
+        System.out.printf("%nСреднее арифметическое элементов массива " +
+                "без учета максимального и минимального числа: ");
+        System.out.println(average);
     }
 }

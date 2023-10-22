@@ -17,7 +17,7 @@ public class MultiplicationTest {
         int correctAnswers = 0;
 
         for (int i = 0; i < 5; i++) {
-            int num1 = random.nextInt(9) + 1; // Генерация случайного числа от 1 до 9
+            int num1 = random.nextInt(9) + 1;
             int num2 = random.nextInt(9) + 1;
 
             int correctResult = num1 * num2;
@@ -29,18 +29,18 @@ public class MultiplicationTest {
                 System.out.println("\u001B[32mПравильно!\u001B[0m");
                 correctAnswers++;
             } else {
-                System.out.println("\u001B[31mОшибка\u001B[0m");
+                System.out.println("\u001B[31mНеправильно\u001B[0m");
             }
         }
 
         System.out.println("Тест завершен.");
 
         if (correctAnswers == 5) {
-            System.out.println("Отлично!");
-        } else if (correctAnswers >= 3) {
-            System.out.println("Средне");
-        } else {
-            System.out.println("Слабо");
+            System.out.println("Молодец");
+        } else if (correctAnswers == 3 || correctAnswers == 4) {
+            System.out.println("Надо бы еще поучить");
+        } else if (correctAnswers <= 2) {
+            System.out.println("Срочно нужно учить таблицу умножения");
         }
     }
 }

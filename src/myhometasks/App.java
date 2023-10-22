@@ -11,7 +11,7 @@ import tasks.CreateBooksArray;
 import tasks.NumberParser;
 import java.util.Scanner;
 import tasks.AlphabetCheck;
-import tasks.ChineseCalendar;
+import tasks.EasternCalendar;
 import tasks.MultiplicationTest;
 import tasks.TemperatureConverter;
 
@@ -36,7 +36,7 @@ public class App {
             System.out.println("3. Создание массива книг");
             System.out.println("4. Задача с массивом целых чисел");
             System.out.println("5. Температура в году");
-            System.out.println("6. Китайский календарь(начиная с 1984)");
+            System.out.println("6. Восточный календарь(начиная с 1984)");
             System.out.println("7. Проверка таблицы умножения");
             System.out.println("8. Проверка наличия всех букв алфавита");
 
@@ -79,12 +79,9 @@ public class App {
                     System.out.println("--- конец задачи 5 ---");
                     break;
                 case 6:
-                    System.out.println("--- Выбрана задача 6 (Китайский календарь) ---");
-                    ChineseCalendar chineseCalendar = new ChineseCalendar();
-                    System.out.print("Введите год: ");
-                    int year = scanner.nextInt();
-                    scanner.nextLine();
-                    chineseCalendar.getYearInfo(year);
+                    System.out.println("--- Выбрана задача 6 (Восточный календарь) ---");
+                    EasternCalendar easternCalendar = new EasternCalendar();
+                    easternCalendar.GetYearInfo();
                     System.out.println("--- конец задачи 6 ---");
                     break;
                     
@@ -97,9 +94,7 @@ public class App {
                 case 8:
                     System.out.println("--- Выбрана задача 8 (Проверка наличия всех букв алфавита) ---");
                     AlphabetCheck alphabetCheck = new AlphabetCheck(scanner);
-                    System.out.println("Введите текст для проверки:");
-                    String text = scanner.nextLine();
-                    alphabetCheck.checkAlphabet(text);
+                    alphabetCheck.checkAlphabet();
                     System.out.println("--- конец задачи 8 ---");
                     break;
 
